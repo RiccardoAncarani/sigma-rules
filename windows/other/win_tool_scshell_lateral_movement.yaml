@@ -1,0 +1,17 @@
+title: SCShell Detection
+description: Detects SCShell usage by monitoring for event id 4657 (A registry value was modified) 
+reference: https://riccardoancarani.github.io/2019-12-16-hunting-for-scshell-usage/
+author: Riccardo Ancarani 
+logsource: 
+  product: windows
+detection:
+   selection:
+      EventID: 4657
+      ProcessName: 'C:\Windows\System32\services.exe'
+   keywords: 
+      - 'cmd.exe /c' 
+      - 'MACHINE\SYSTEM'
+   condition: selection and all of keywords
+falsepositives:
+   - Unknown
+level: high
